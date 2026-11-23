@@ -1,0 +1,47 @@
+Scenario 1.2 - Employee Directory (Expected Output)
+
+Step 1
+switched to db hr
+{ acknowledged: true, insertedIds: { '0': ObjectId('...'), ... '7': ObjectId('...') } }
+
+Step 2  ($gt 60000) -> Bala, Elan, Gopal
+{ _id: ObjectId('...'), empId: 2, name: 'Bala',  dept: 'IT',      salary: 65000, city: 'Bengaluru' }
+{ _id: ObjectId('...'), empId: 5, name: 'Elan',  dept: 'IT',      salary: 72000, city: 'Chennai' }
+{ _id: ObjectId('...'), empId: 7, name: 'Gopal', dept: 'Finance', salary: 61000, city: 'Chennai' }
+
+Step 3  ($gte 45000, $lte 60000) -> Charan, Deepa, Farah
+{ _id: ObjectId('...'), empId: 3, name: 'Charan', dept: 'IT',      salary: 58000, city: 'Chennai' }
+{ _id: ObjectId('...'), empId: 4, name: 'Deepa',  dept: 'Finance', salary: 50000, city: 'Mumbai' }
+{ _id: ObjectId('...'), empId: 6, name: 'Farah',  dept: 'HR',      salary: 45000, city: 'Delhi' }
+
+Step 4  ($in IT, Finance) -> Bala, Charan, Deepa, Elan, Gopal
+{ _id: ObjectId('...'), empId: 2, name: 'Bala',   dept: 'IT',      salary: 65000, city: 'Bengaluru' }
+{ _id: ObjectId('...'), empId: 3, name: 'Charan', dept: 'IT',      salary: 58000, city: 'Chennai' }
+{ _id: ObjectId('...'), empId: 4, name: 'Deepa',  dept: 'Finance', salary: 50000, city: 'Mumbai' }
+{ _id: ObjectId('...'), empId: 5, name: 'Elan',   dept: 'IT',      salary: 72000, city: 'Chennai' }
+{ _id: ObjectId('...'), empId: 7, name: 'Gopal',  dept: 'Finance', salary: 61000, city: 'Chennai' }
+
+Step 5a ($and) -> Charan, Elan, Gopal
+{ _id: ObjectId('...'), empId: 3, name: 'Charan', dept: 'IT',      salary: 58000, city: 'Chennai' }
+{ _id: ObjectId('...'), empId: 5, name: 'Elan',   dept: 'IT',      salary: 72000, city: 'Chennai' }
+{ _id: ObjectId('...'), empId: 7, name: 'Gopal',  dept: 'Finance', salary: 61000, city: 'Chennai' }
+
+Step 5b ($or) -> Anita, Elan, Farah
+{ _id: ObjectId('...'), empId: 1, name: 'Anita', dept: 'HR', salary: 42000, city: 'Chennai' }
+{ _id: ObjectId('...'), empId: 5, name: 'Elan',  dept: 'IT', salary: 72000, city: 'Chennai' }
+{ _id: ObjectId('...'), empId: 6, name: 'Farah', dept: 'HR', salary: 45000, city: 'Delhi' }
+
+Step 6  ($nin Chennai, Bengaluru) -> Deepa, Farah, Hema
+{ _id: ObjectId('...'), empId: 4, name: 'Deepa', dept: 'Finance', salary: 50000, city: 'Mumbai' }
+{ _id: ObjectId('...'), empId: 6, name: 'Farah', dept: 'HR',      salary: 45000, city: 'Delhi' }
+{ _id: ObjectId('...'), empId: 8, name: 'Hema',  dept: 'Sales',   salary: 38000, city: 'Hyderabad' }
+
+Step 7  ($regex ^[ABC]) -> Anita, Bala, Charan
+{ _id: ObjectId('...'), empId: 1, name: 'Anita',  dept: 'HR', salary: 42000, city: 'Chennai' }
+{ _id: ObjectId('...'), empId: 2, name: 'Bala',   dept: 'IT', salary: 65000, city: 'Bengaluru' }
+{ _id: ObjectId('...'), empId: 3, name: 'Charan', dept: 'IT', salary: 58000, city: 'Chennai' }
+
+Step 8  (sorted: Elan, Bala, Gopal, Charan, Deepa, ... -> skip 2, limit 3)
+{ name: 'Gopal',  salary: 61000 }
+{ name: 'Charan', salary: 58000 }
+{ name: 'Deepa',  salary: 50000 }
