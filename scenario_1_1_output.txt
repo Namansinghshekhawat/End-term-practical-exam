@@ -1,0 +1,38 @@
+Scenario 1.1 - Student Records (Expected Output)
+
+Step 1
+switched to db college
+{ acknowledged: true, insertedId: ObjectId('...') }
+
+Step 2
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('...'), '1': ObjectId('...'),
+    '2': ObjectId('...'), '3': ObjectId('...')
+  }
+}
+
+Step 3  (db.students.find()  -> all 5 documents)
+{ _id: ObjectId('...'), rollNo: 101, name: 'Arun',    dept: 'CSE',  marks: 78, city: 'Chennai' }
+{ _id: ObjectId('...'), rollNo: 102, name: 'Divya',   dept: 'ECE',  marks: 85, city: 'Madurai' }
+{ _id: ObjectId('...'), rollNo: 103, name: 'Karthik', dept: 'CSE',  marks: 62, city: 'Chennai' }
+{ _id: ObjectId('...'), rollNo: 104, name: 'Meena',   dept: 'MECH', marks: 70, city: 'Coimbatore' }
+{ _id: ObjectId('...'), rollNo: 105, name: 'Suresh',  dept: 'CSE',  marks: 91, city: 'Trichy' }
+
+Step 3  (db.students.find({ dept: "CSE" }) -> 3 CSE students)
+{ _id: ObjectId('...'), rollNo: 101, name: 'Arun',    dept: 'CSE', marks: 78, city: 'Chennai' }
+{ _id: ObjectId('...'), rollNo: 103, name: 'Karthik', dept: 'CSE', marks: 62, city: 'Chennai' }
+{ _id: ObjectId('...'), rollNo: 105, name: 'Suresh',  dept: 'CSE', marks: 91, city: 'Trichy' }
+
+Step 4
+{ acknowledged: true, insertedId: null, matchedCount: 1, modifiedCount: 1, upsertedCount: 0 }
+
+Step 5
+{ acknowledged: true, insertedId: null, matchedCount: 3, modifiedCount: 3, upsertedCount: 0 }
+
+Step 6
+{ acknowledged: true, deletedCount: 1 }
+
+Step 7
+4
